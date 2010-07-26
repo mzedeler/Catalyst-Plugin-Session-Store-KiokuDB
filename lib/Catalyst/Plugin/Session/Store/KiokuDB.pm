@@ -33,7 +33,7 @@ sub setup_session {
             message => "KiokuDB requires at least 'kiokuObject', 'kiokuDir' or 'kiokuModel' (in conjunction with Catalyst::Model::KiokuDB) to be set."
         );
     }
-    $confSess->{kiokuScope} = $confSess->{kioku}->new_scope();
+
 }
 
 sub get_kioku {
