@@ -152,9 +152,11 @@ it does pretty much the very same things other session modules do.
 
 =head1 CONFIGURATION
 
-Under the C<session> key in your configuration parameters, you can use either
-of C<kiokuDir> which points to a directory in which KiokuDB will store its
-data, or C<kiokuObject> which allows you to reuse an existing KiokuDB instance.
+Under the C<session> key in your configuration parameters, you can use 
+C<kiokuDir> which points to a directory in which KiokuDB will store its
+data, C<kiokuObject> which allows you to reuse an existing KiokuDB instance
+or C<kiokuModel> which points the name of a C<Catalyst> model that must be
+of class L<Catalyst::Model::KiokuDB> (typically just 'kiokudb').
 
 =head1 METHODS
 
@@ -174,11 +176,16 @@ This one is currently a no-op.
 
 =head1 SEE ALSO
 
-L<Catalyst>, L<Catalyst::Plugin::Session>
+L<Catalyst>, L<Catalyst::Plugin::Session>, L<Catalyst::Model::KiokuDB>,
+L<KiokuX::Model>
 
 =head1 AUTHOR
 
-Robin Berjon, <robin@berjon.com>, L<http://robineko.com/>
+Robin Berjon, <robin@berjon.com>, L<http://robineko.com/>.
+
+=head1 CONTRIBUTORS
+
+Michael Zedeler, <michael@zedeler.dk>.
 
 =head1 COPYRIGHT
 
