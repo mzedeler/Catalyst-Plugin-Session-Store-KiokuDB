@@ -1,0 +1,55 @@
+NAME
+    Catalyst::Plugin::Session::Store::KiokuDB - Store sessions using KiokuDB
+
+SYNOPSIS
+        # In Catalyst
+        use Catalyst qw/
+                        Session
+                        Session::State::Whatever
+                        Session::Store::KiokuDB
+                        /;
+        
+    # Configure it
+        MyApp->config->{session}->{kiokuDir} = '/path/to/storage/dir';
+        # or
+        MyApp->config->{session}->{kiokuObject} = KiokuDB->new(...);
+
+        # then use it as you would any session plugin
+
+DESCRIPTION
+    This session storage module will store data using KiokuDB. Aside from
+    that it does pretty much the very same things other session modules do.
+
+CONFIGURATION
+    Under the "session" key in your configuration parameters, you can use
+    "kiokuDir" which points to a directory in which KiokuDB will store its
+    data, "kiokuObject" which allows you to reuse an existing KiokuDB
+    instance or "kiokuModel" which points the name of a "Catalyst" model
+    that must be of class Catalyst::Model::KiokuDB (typically just
+    'kiokudb').
+
+METHODS
+    These are the classic store methods from
+    Catalyst::Plugin::Session::Store.
+
+  get_session_data
+  store_session_data
+  delete_session_data
+  delete_expired_sessions
+    This one is currently a no-op.
+
+  setup_session
+SEE ALSO
+    Catalyst, Catalyst::Plugin::Session, Catalyst::Model::KiokuDB,
+    KiokuX::Model
+
+AUTHOR
+    Robin Berjon, <robin@berjon.com>, <http://robineko.com/>.
+
+CONTRIBUTORS
+    Michael Zedeler, <michael@zedeler.dk>.
+
+COPYRIGHT
+    This program is free software, you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
