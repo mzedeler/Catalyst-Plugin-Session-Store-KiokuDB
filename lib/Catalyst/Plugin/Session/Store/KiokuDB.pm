@@ -7,7 +7,7 @@ use NEXT;
 use KiokuDB;
 use KiokuDB::Backend::BDB::GIN;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new { return bless {}, shift; }
 
