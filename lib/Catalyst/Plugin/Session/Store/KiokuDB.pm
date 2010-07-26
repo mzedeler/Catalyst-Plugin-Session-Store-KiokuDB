@@ -25,19 +25,31 @@ sub setup_session {
                 backend => KiokuDB::Backend::BDB::GIN->new(manager => { home => $confSess->{kiokuDir}, create  => 1 }),
         );
     }
+    elsif ($confSess->{kiokuModel}) {
+        warn "Using kiokudb model for store";
+    }
     else {
         Catalyst::Exception->throw( 
-            message => "KiokuDB requires at least 'kiokuObject' or 'kiokuDir' to be set."
+            message => "KiokuDB requires at least 'kiokuObject', 'kiokuDir' or 'kiokuModel' (in conjunction with Catalyst::Model::KiokuDB) to be set."
         );
     }
     $confSess->{kiokuScope} = $confSess->{kioku}->new_scope();
 }
 
+sub get_kioku {
+    my ($c) = @_;
+   
+    return $c->config->{session}->{kioku} ||
+        $c->model($c->config->{session}->{kiokuModel});
+}
+   
 sub get_session_data {
     my ($c, $key) = @_;
     
+    my $kioku = get_kioku($c);    
     my ($type, $id) = split ':', $key;
-    my $obj = $c->config->{session}->{kioku}->lookup($id) || return;
+    
+    my $obj = $kioku->lookup($id) || return;
     return $obj->expires if $type eq 'expires';
     return $obj->data;
 }
@@ -45,9 +57,10 @@ sub get_session_data {
 sub store_session_data {
     my ($c, $key, $data) = @_;
     
+    my $kioku = get_kioku($c);
     my ($type, $id) = split ':', $key;
     
-    if (my $obj = $c->config->{session}->{kioku}->lookup($id)) {
+    if (my $obj = $kioku->lookup($id)) {
         if ($type eq 'expires') {
             $obj->expires($data);
         }
@@ -55,7 +68,7 @@ sub store_session_data {
             $obj->flash(($type eq 'flash') ? 1 : 0);
             $obj->data($data);
         }
-        $c->config->{session}->{kioku}->store($obj); # no id means update
+        $kioku->store($obj); # no id means update
     }
     else {
         my $obj = Catalyst::Plugin::Session::Store::KiokuDB::Session->new(
@@ -64,7 +77,7 @@ sub store_session_data {
                         expires => ($type eq 'expires') ? $data : undef,
                         data    => ($type eq 'expires') ? {} : $data,
         );
-        $c->config->{session}->{kioku}->store($id => $obj); # id means insert
+        $kioku->store($id => $obj); # id means insert
     }
     return;
 }
@@ -72,9 +85,13 @@ sub store_session_data {
 sub delete_session_data {
     my ($c, $key) = @_;
     
+    my $kioku = get_kioku($c);    
     my ($type, $id) = split ':', $key;
+
     return if $type eq 'expires';
-    $c->config->{session}->{kioku}->delete($id);
+
+    $kioku->delete($id);
+
     return;
 }
 
