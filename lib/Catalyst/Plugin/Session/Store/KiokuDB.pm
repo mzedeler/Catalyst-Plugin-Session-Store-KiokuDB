@@ -26,7 +26,7 @@ sub setup_session {
         );
     }
     elsif ($confSess->{kiokuModel}) {
-        warn "Using kiokudb model for store";
+        # This is a NOP - handled in get_kioku() below
     }
     else {
         Catalyst::Exception->throw( 
