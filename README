@@ -43,11 +43,18 @@ SEE ALSO
     Catalyst, Catalyst::Plugin::Session, Catalyst::Model::KiokuDB,
     KiokuX::Model
 
-AUTHOR
-    Robin Berjon, <robin@berjon.com>, <http://robineko.com/>.
+MODULE HOME PAGE
+    <http://github.com/mzedeler/Catalyst-Plugin-Session-Store-KiokuDB>.
 
-CONTRIBUTORS
+    If you find a bug, please fork the master branch from Github, write a
+    test case and push it to GitHub. After this, open an issue using Githubs
+    issue tracker.
+
+MAINTAINER
     Michael Zedeler, <michael@zedeler.dk>.
+
+ORIGINAL AUTHOR
+    Robin Berjon, <robin@berjon.com>, <http://robineko.com/>.
 
 COPYRIGHT
     This program is free software, you can redistribute it and/or modify it

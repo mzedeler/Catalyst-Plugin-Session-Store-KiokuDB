@@ -72,10 +72,10 @@ sub store_session_data {
     }
     else {
         my $obj = Catalyst::Plugin::Session::Store::KiokuDB::Session->new(
-                        id      => $id,
-                        flash   => ($type eq 'flash') ? 1 : 0,
-                        expires => ($type eq 'expires') ? $data : undef,
-                        data    => ($type eq 'expires') ? {} : $data,
+            id      => $id,
+            flash   => ($type eq 'flash') ? 1 : 0,
+            expires => ($type eq 'expires') ? $data : undef,
+            data    => ($type eq 'expires') ? {} : $data,
         );
         $kioku->store($id => $obj); # id means insert
     }
@@ -179,13 +179,21 @@ This one is currently a no-op.
 L<Catalyst>, L<Catalyst::Plugin::Session>, L<Catalyst::Model::KiokuDB>,
 L<KiokuX::Model>
 
-=head1 AUTHOR
+=head1 MODULE HOME PAGE
 
-Robin Berjon, <robin@berjon.com>, L<http://robineko.com/>.
+L<http://github.com/mzedeler/Catalyst-Plugin-Session-Store-KiokuDB>.
 
-=head1 CONTRIBUTORS
+If you find a bug, please fork the master branch from Github, write a test
+case and push it to GitHub. After this, open an issue using Githubs issue
+tracker.
+
+=head1 MAINTAINER
 
 Michael Zedeler, <michael@zedeler.dk>.
+
+=head1 ORIGINAL AUTHOR
+
+Robin Berjon, <robin@berjon.com>, L<http://robineko.com/>.
 
 =head1 COPYRIGHT
 
